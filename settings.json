@@ -1,0 +1,11 @@
+{
+  "key_column": "C",
+  "result": {
+    "name": "F",
+    "abv": "G",
+    "ibu": "H",
+    "style": "I",
+    "brewery": "J",
+    "country": "K"
+  }
+}

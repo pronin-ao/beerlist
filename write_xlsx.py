@@ -19,7 +19,7 @@ def write_xlsx(filename, key_column, columns, data):
         if DEBUG:
             print('process {} row with key {}'.format(row_num, name))
 
-        if name not in data:
+        if name not in data or data[name] is None:
             if DEBUG:
                 print('have not result for ', name)
             continue
@@ -29,7 +29,8 @@ def write_xlsx(filename, key_column, columns, data):
                 print('{} has not param {}'.format(name, param))
                 continue
             table[letter+'{}'.format(row_num)] = data[name][param]
-    wb.save(filename)
+        wb.save(filename)
+
     print(filename, ' saved')
 
 
@@ -55,7 +56,7 @@ if RUN_DEBUG:
             'style': 'ochen gorky',
             'abv': 200300,
             'brewery': 'III',
-            'country': 'US',
+            'country': 'Danmark',
         },
         'ADHA 483': {
             'name': '483',
@@ -65,6 +66,6 @@ if RUN_DEBUG:
             'country': 'SU',
         },
     }
-    filename = 'Ostatki_DrimkasUchet_1.xlsx'
+    filename = '/home/pronin-ao/Downloads/Ostatki_DrimkasUchet_1.xlsx'
     key_column = 'C'
     write_xlsx(filename, key_column, columns, data)

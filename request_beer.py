@@ -14,6 +14,15 @@ if __name__ == '__main__':
     RUN_DEBUG = True
 DONT_REQUEST = False
 
+NOT_FOUND_RESULT = {
+    'name': '-',
+    'abv': '-',
+    'ibu': '-',
+    'style': '-',
+    'brewery': '-',
+    'country': '-',
+}
+
 
 def search_beer(beer_name):
     beer_name_url = ur.quote(beer_name)
@@ -43,7 +52,7 @@ def search_beer(beer_name):
     try:
         beers = data['response']['beers']
         if beers['count'] == 0:
-            return None
+            return NOT_FOUND_RESULT
         beer_info = beers['items'][0]
         if DEBUG:
             print('some beer found: ', beer_info)

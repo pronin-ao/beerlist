@@ -16,6 +16,8 @@ DEFAULT_SETTINGS = {
   }
 }
 
+MAX_BREAKS = 3
+
 
 def main():
     if len(sys.argv) < 2:
@@ -30,23 +32,28 @@ def main():
             settings = json.load(settings_file)
 
     try:
-        beer_list = read_xlsx(filename, settings['key_column'])
+        beer_list = read_xlsx(
+            filename, settings['key_column'], settings['result']
+        )
     except Exception as er:
         print('error reading file: ', er)
         return
 
-    print('Skopped {} name of beer'.format(len(beer_list)))
+    print('Scoped {} name of beer'.format(len(beer_list)))
 
     beer_data = {}
     breaks = 0
     for beer_name in beer_list:
         try:
             beer = search_beer(beer_name)
-            beer_data[beer_name] = beer
+            if beer is not None:
+                beer_data[beer_name] = beer
+            else:
+                print(beer, ' was not found!')
         except Exception as er:
             print('error processing request: ', er)
             breaks = breaks+1
-            if breaks >= 3:
+            if breaks >= MAX_BREAKS:
                 break
 
     try:
